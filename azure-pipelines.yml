@@ -11,15 +11,14 @@ parameters:
     - No
     - Yes
 
-continueOnError: 
-container:
+# continueOnError: 
+# container:
 trigger:
 - master
 
 stages:
--stage: CI
- displayName: CIStage
- condition: and(succeeded(), eq('${{ parameters.productionDeploy }}', 'Yes'))
+- stage: CI
+  condition: and(succeeded(), eq('${{ parameters.productionDeploy }}', 'Yes'))
 
 pool:
   vmImage: 'ubuntu-latest'
