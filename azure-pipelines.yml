@@ -23,7 +23,7 @@ trigger:
 
 stages:
 - stage: CI
-  condition: eq('${{ parameters.productionDeploy }}', 'Yes'))
+  condition: eq('${{ parameters.productionDeploy }}', 'Yes')
 pool:
   vmImage: 'ubuntu-latest'
   jobs:
