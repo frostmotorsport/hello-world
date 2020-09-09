@@ -22,16 +22,6 @@ trigger:
 - master
 
 stages:
-- stage: tag
-  displayName: "Create git Tag"
-  jobs:
-  - job: tag
-    steps:
-    - task: git-tag-on-release-task@9
-      displayName: "Add Tag to git"
-      inputs:
-        staticTagName: "TEST-$(Build.BuildNumber)"
-
 - stage: CI
   condition: eq('${{ parameters.productionDeploy }}', 'Yes')
   pool:
@@ -46,3 +36,11 @@ stages:
         echo Add other tasks to build, test, and deploy your project.
         echo See https://aka.ms/yaml
       displayName: 'Run a multi-line script'
+      
+    - script: |
+       git config --global user.name "Middleware Build Service (Kiwibank)"
+       git config --global user.email ""
+       git tag $(Build.BuildNumber)
+       git push origin $(Build.BuildNumber)
+       workingDirectory: $(Build.SourcesDirectory)
+
